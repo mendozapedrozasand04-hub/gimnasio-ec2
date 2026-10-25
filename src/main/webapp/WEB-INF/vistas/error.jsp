@@ -1,0 +1,2 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %><!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Error</title></head><body><h1>No se pudo abrir la página</h1><p>Revise el mensaje de la consola de IntelliJ y que MySQL esté iniciado.</p><a href="<%=request.getContextPath()%>/inicio">Volver al inicio</a></body></html>

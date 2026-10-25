@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="6.0">
+ <display-name>Gestion de Gimnasio</display-name>
+ <filter><filter-name>seguridad</filter-name><filter-class>pe.edu.gimnasio.controlador.SeguridadFiltro</filter-class></filter>
+ <filter-mapping><filter-name>seguridad</filter-name><url-pattern>/*</url-pattern><dispatcher>REQUEST</dispatcher></filter-mapping>
+<servlet><servlet-name>Login</servlet-name><servlet-class>pe.edu.gimnasio.controlador.LoginServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Login</servlet-name><url-pattern>/login</url-pattern></servlet-mapping>
+<servlet><servlet-name>Salir</servlet-name><servlet-class>pe.edu.gimnasio.controlador.SalirServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Salir</servlet-name><url-pattern>/salir</url-pattern></servlet-mapping>
+<servlet><servlet-name>Inicio</servlet-name><servlet-class>pe.edu.gimnasio.controlador.InicioServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Inicio</servlet-name><url-pattern>/inicio</url-pattern></servlet-mapping>
+<servlet><servlet-name>Cliente</servlet-name><servlet-class>pe.edu.gimnasio.controlador.ClienteServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Cliente</servlet-name><url-pattern>/clientes</url-pattern></servlet-mapping>
+<servlet><servlet-name>Plan</servlet-name><servlet-class>pe.edu.gimnasio.controlador.PlanServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Plan</servlet-name><url-pattern>/planes</url-pattern></servlet-mapping>
+<servlet><servlet-name>Membresia</servlet-name><servlet-class>pe.edu.gimnasio.controlador.MembresiaServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Membresia</servlet-name><url-pattern>/membresias</url-pattern></servlet-mapping>
+<servlet><servlet-name>Pago</servlet-name><servlet-class>pe.edu.gimnasio.controlador.PagoServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Pago</servlet-name><url-pattern>/pagos</url-pattern></servlet-mapping>
+<servlet><servlet-name>Asistencia</servlet-name><servlet-class>pe.edu.gimnasio.controlador.AsistenciaServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Asistencia</servlet-name><url-pattern>/asistencias</url-pattern></servlet-mapping>
+<servlet><servlet-name>Reporte</servlet-name><servlet-class>pe.edu.gimnasio.controlador.ReporteServlet</servlet-class></servlet>
+<servlet-mapping><servlet-name>Reporte</servlet-name><url-pattern>/reportes</url-pattern></servlet-mapping>
+<welcome-file-list><welcome-file>inicio</welcome-file></welcome-file-list>
+ <session-config><session-timeout>30</session-timeout><cookie-config><http-only>true</http-only></cookie-config><tracking-mode>COOKIE</tracking-mode></session-config>
+ <error-page><error-code>500</error-code><location>/WEB-INF/vistas/error.jsp</location></error-page>
+ <jsp-config>
+  <jsp-property-group>
+   <url-pattern>*.jsp</url-pattern>
+   <page-encoding>UTF-8</page-encoding>
+  </jsp-property-group>
+ </jsp-config>
+</web-app>

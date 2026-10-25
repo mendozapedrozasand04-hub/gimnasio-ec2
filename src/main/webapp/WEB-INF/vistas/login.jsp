@@ -1,0 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*,java.time.*,pe.edu.gimnasio.modelo.*,pe.edu.gimnasio.util.Web" %>
+<% String base=request.getContextPath(); %>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Acceso al gimnasio</title><link rel="stylesheet" href="<%=base%>/css/estilos.css"></head><body class="acceso"><main class="caja-login"><p class="etiqueta">GESTIÓN DE GIMNASIO</p><h1>Iniciar sesión</h1><p>Ingrese con su cuenta de administrador.</p>
+<%if(request.getAttribute("error")!=null){%><div class="aviso error" role="alert"><%=Web.html(request.getAttribute("error"))%></div><%}%>
+<form method="post" action="<%=base%>/login"><input type="hidden" name="token" value="<%=session.getAttribute("token")%>"><label>Correo<input type="email" name="correo" maxlength="150" required autocomplete="username" value="<%=Web.html(request.getParameter("correo"))%>"></label><label>Contraseña<input type="password" name="clave" maxlength="100" required autocomplete="current-password"></label><button>Ingresar</button></form></main><script src="<%=base%>/js/formularios.js"></script></body></html>

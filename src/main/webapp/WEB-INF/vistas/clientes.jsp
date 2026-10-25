@@ -1,0 +1,18 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="cabecera.jsp" %><%! private String campo(jakarta.servlet.http.HttpServletRequest r,String nombre,Object valor){return Web.html(Boolean.TRUE.equals(r.getAttribute("reintento"))?r.getParameter(nombre):valor);} %>
+<%Cliente x=(Cliente)request.getAttribute("cliente");if(x==null)x=new Cliente();List<Cliente> clientes=(List<Cliente>)request.getAttribute("clientes");%>
+<h1>Clientes</h1><p>Registro, consulta y actualización de clientes del gimnasio.</p>
+<section class="panel"><h2><%=x.getId()>0?"Editar cliente":"Nuevo cliente"%></h2>
+<form method="post" action="<%=base%>/clientes" class="rejilla"><input type="hidden" name="token" value="<%=session.getAttribute("token")%>"><input type="hidden" name="id" value="<%=campo(request,"id",x.getId()==0?"":x.getId())%>">
+<label>Tipo de documento<select name="tipo_documento"><%for(String tipo:List.of("DNI","CE","PASAPORTE")){%><option <%=tipo.equals(Boolean.TRUE.equals(request.getAttribute("reintento"))?request.getParameter("tipo_documento"):x.getTipoDocumento())?"selected":""%>><%=tipo%></option><%}%></select></label>
+<label>Documento<input name="documento" maxlength="20" required value="<%=campo(request,"documento",x.getDocumento())%>"></label>
+<label>Nombres<input name="nombres" maxlength="100" required value="<%=campo(request,"nombres",x.getNombres())%>"></label>
+<label>Apellidos<input name="apellidos" maxlength="100" required value="<%=campo(request,"apellidos",x.getApellidos())%>"></label>
+<label>Teléfono<input type="tel" name="telefono" maxlength="20" required value="<%=campo(request,"telefono",x.getTelefono())%>"></label>
+<label>Correo (opcional)<input type="email" name="correo" maxlength="150" value="<%=campo(request,"correo",x.getCorreo())%>"></label>
+<label>Estado<select name="estado"><%for(String e:List.of("ACTIVO","INACTIVO")){%><option <%=e.equals(Boolean.TRUE.equals(request.getAttribute("reintento"))?request.getParameter("estado"):x.getEstado())?"selected":""%>><%=e%></option><%}%></select></label>
+<div class="acciones"><button>Guardar cliente</button><a href="<%=base%>/clientes">Limpiar</a></div></form></section>
+<section class="panel"><h2>Listado de clientes</h2><form method="get" class="filtros"><label>Nombre o documento<input name="q" value="<%=Web.html(request.getParameter("q"))%>"></label><label>Estado<select name="estado"><option value="">Todos</option><%for(String e:List.of("ACTIVO","INACTIVO")){%><option <%=e.equals(request.getParameter("estado"))?"selected":""%>><%=e%></option><%}%></select></label><button>Buscar</button><a href="<%=base%>/clientes">Limpiar</a></form>
+<div class="tabla"><table><thead><tr><th>Documento</th><th>Cliente</th><th>Teléfono</th><th>Correo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>
+<%if(clientes!=null)for(Cliente c:clientes){%><tr><td><%=Web.html(c.getTipoDocumento())%> <%=Web.html(c.getDocumento())%></td><td><%=Web.html(c.getNombres()+" "+c.getApellidos())%></td><td><%=Web.html(c.getTelefono())%></td><td><%=Web.html(c.getCorreo())%></td><td><%=c.getEstado()%></td><td class="acciones"><a href="<%=base%>/clientes?accion=editar&id=<%=c.getId()%>">Editar</a><%if("ACTIVO".equals(c.getEstado())){%><form method="post" data-confirmar="¿Desactivar al cliente? Se conservará su historial."><input type="hidden" name="token" value="<%=session.getAttribute("token")%>"><input type="hidden" name="id" value="<%=c.getId()%>"><button name="accion" value="desactivar" class="peligro">Desactivar</button></form><%}%></td></tr><%}%>
+<%if(clientes==null||clientes.isEmpty()){%><tr><td colspan="6">No hay clientes para mostrar.</td></tr><%}%></tbody></table></div></section><%@ include file="pie.jsp" %>
